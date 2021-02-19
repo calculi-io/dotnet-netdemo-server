@@ -1,6 +1,6 @@
 {
 	"metadata": {
-		"version": 1
+		"version": 2
 	},
 	"application": {
 		"name": "netdemo-server",
@@ -28,42 +28,9 @@
 			{
 				"name": "Build",
 				"segment_type": "build",
-				"job_steps": [
-					{
-						"name": "Restore",
-						"definition": "Restore with nuget",
-						"command": "nuget restore ",
-						"properties": null
-					},
-					{
-						"name": "Build",
-						"definition": "Build debug files",
-						"command": "msbuild /t:Rebuild /p:Configuration=Debug",
-						"properties": null
-					},
-					{
-						"name": "Test",
-						"definition": "Run Tests",
-						"command": ".\\test.ps1",
-						"properties": null
-					},
-					{
-						"name": "Make Cobertura Report",
-						"definition": "convert report to cobertura format",
-						"command": ".\\makereport.ps1",
-						"properties": null
-					},
-					{
-						"name": "Package",
-						"definition": "Pacakge as zip file",
-						"command": ".\\package.ps1",
-						"properties": null
-					}
-				],
 				"exit_actions": {
 					"default": {
 						"fetch_logs": true,
-						"notifications": [],
 						"code_analysis": {
 							"publish": true,
 							"properties": null
@@ -76,31 +43,22 @@
 					"update_watch_time": "",
 					"serial": false
 				},
-				"application_init": {
-					"command": "",
-					"arguments": null
-				},
+				"application_init": {},
 				"packages": [
 					{
 						"name": "((application.name))",
-						"dependencies": [],
 						"downloads": [],
 						"files": [
 							"((application.name)).zip"
-						],
-						"package_install_command": "",
-						"installed_path": ""
+						]
 					},
 					{
 						"name": "integration",
-						"dependencies": [],
 						"downloads": [],
 						"files": [
 							".\\netdemo-Server\\bin\\Debug\\*",
 							".\\test-integration.ps1"
-						],
-						"package_install_command": "",
-						"installed_path": ""
+						]
 					}
 				],
 				"instance_tags": [
@@ -123,7 +81,44 @@
 						"UnhealthyThresholdCount": 0
 					}
 				},
-				"cache_info": {}
+				"cache_info": {},
+				"tasks": [
+					{
+						"name": "netdemo-server",
+						"steps": [
+							{
+								"name": "Restore",
+								"definition": "Restore with nuget",
+								"command": "nuget restore ",
+								"properties": null
+							},
+							{
+								"name": "Build",
+								"definition": "Build debug files",
+								"command": "msbuild /t:Rebuild /p:Configuration=Debug",
+								"properties": null
+							},
+							{
+								"name": "Test",
+								"definition": "Run Tests",
+								"command": ".\\test.ps1",
+								"properties": null
+							},
+							{
+								"name": "Make Cobertura Report",
+								"definition": "convert report to cobertura format",
+								"command": ".\\makereport.ps1",
+								"properties": null
+							},
+							{
+								"name": "Package",
+								"definition": "Pacakge as zip file",
+								"command": ".\\package.ps1",
+								"properties": null
+							}
+						]
+					}
+				]
 			},
 			{
 				"name": "Integration",
@@ -153,16 +148,14 @@
 					{
 						"name": "jmeter",
 						"definition": "jmeter",
-						"command": "$ipa = (Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null -and $_.NetAdapter.Status -ne \"Disconnected\"}).IPv4Address.IPAddress\n$env:Path += \";$env:PKG_BASE_DIR/jdk/bin;$env:PKG_BASE_DIR/jmeter/bin\"\n$port = $env:DEMOSERVER_PORT\njmeter -Jip=\"$ipa\" -Jport=\"$port\" -n -t ci/pt.jmx -l $env:TEST_LOGS_DIR/results.jtl\n.\\ci\\validatept.ps1",
+						"command": "# $ipa = (Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null -and $_.NetAdapter.Status -ne \"Disconnected\"}).IPv4Address.IPAddress\n# $env:Path += \";$env:PKG_BASE_DIR/jdk/bin;$env:PKG_BASE_DIR/jmeter/bin\"\n# $port = $env:DEMOSERVER_PORT\n# jmeter -Jip=\"$ipa\" -Jport=\"$port\" -n -t ci/pt.jmx -l $env:TEST_LOGS_DIR/results.jtl\n# .\\ci\\validatept.ps1",
 						"properties": null
 					}
 				],
 				"exit_actions": {
 					"default": {
 						"fetch_logs": true,
-						"notifications": [],
 						"code_analysis": {
-							"publish": false,
 							"properties": null
 						},
 						"delete_instances": true
@@ -199,14 +192,9 @@
 					"update_watch_time": "60000-300000",
 					"serial": false
 				},
-				"application_init": {
-					"command": "",
-					"arguments": null
-				},
+				"application_init": {},
 				"process": {
-					"init": {
-						"command": ""
-					}
+					"init": {}
 				},
 				"package_dependencies": [
 					"((application.name))",
@@ -222,14 +210,14 @@
 					{
 						"name": "((application.name))",
 						"number_of_instances": 1,
-						"persistent_disk_type": "",
+						"cloud_provider_type": "aws",
 						"vm_type": "small",
 						"os_type": "windows2012R2",
 						"networks": [
-							"((deploy.target.network.integration))"
+							"integration"
 						],
 						"availability_zones": [
-							"((deploy.target.zone.integration))"
+							"default"
 						],
 						"deployment_strategy": {},
 						"dependencies": [
@@ -280,16 +268,6 @@
 										"value": "false"
 									}
 								]
-							},
-							{
-								"name": "jmeter",
-								"release": "jmeter",
-								"properties": []
-							},
-							{
-								"name": "netdemo-client-Integration",
-								"release": "netdemo-client",
-								"properties": []
 							}
 						]
 					}
@@ -307,7 +285,8 @@
 						"HealthCheckPort": "",
 						"UnhealthyThresholdCount": 0
 					}
-				}
+				},
+				"deployment_target": 1
 			},
 			{
 				"name": "Production",
@@ -322,20 +301,12 @@
 						"definition": "Add Firewall Rule",
 						"command": "Import-Module NetSecurity\nNew-NetFirewallRule -Name netdemoport -DisplayName \"netdemo server port\" -Direction Inbound -Protocol TCP -LocalPort \"$env:DEMOSERVER_PORT\" -Action Allow",
 						"properties": null
-					},
-					{
-						"name": "jmeter",
-						"definition": "jmeter",
-						"command": "$ipa = \"netdemo-server.service.consul\"\n$env:Path += \";$env:PKG_BASE_DIR/jdk/openjdk/bin;$env:PKG_BASE_DIR/jmeter/bin\"\n$port = $env:DEMOSERVER_PORT\njmeter -Jip=\"$ipa\" -Jport=\"$port\" -n -t ci/pt.jmx -l $env:TEST_LOGS_DIR/results.jtl\n.\\ci\\validatept.ps1",
-						"properties": null
 					}
 				],
 				"exit_actions": {
 					"default": {
 						"fetch_logs": true,
-						"notifications": [],
 						"code_analysis": {
-							"publish": false,
 							"properties": null
 						},
 						"delete_instances": true
@@ -359,14 +330,9 @@
 					"update_watch_time": "60000-300000",
 					"serial": false
 				},
-				"application_init": {
-					"command": "",
-					"arguments": null
-				},
+				"application_init": {},
 				"process": {
-					"init": {
-						"command": ""
-					}
+					"init": {}
 				},
 				"package_dependencies": [
 					"((application.name))"
@@ -381,14 +347,14 @@
 					{
 						"name": "((application.name))",
 						"number_of_instances": 3,
-						"persistent_disk_type": "",
+						"cloud_provider_type": "aws",
 						"vm_type": "medium",
 						"os_type": "windows2012R2",
 						"networks": [
-							"((deploy.target.network.production))"
+							"production"
 						],
 						"availability_zones": [
-							"((deploy.target.zone.production))"
+							"default"
 						],
 						"deployment_strategy": {},
 						"dependencies": [
@@ -439,11 +405,6 @@
 										"value": "false"
 									}
 								]
-							},
-							{
-								"name": "jmeter",
-								"release": "jmeter",
-								"properties": []
 							}
 						]
 					}
@@ -461,13 +422,13 @@
 						"HealthCheckPort": "",
 						"UnhealthyThresholdCount": 0
 					}
-				}
+				},
+				"deployment_target": 1
 			}
 		],
 		"exit_actions": {
 			"default": {
 				"fetch_logs": true,
-				"notifications": [],
 				"code_analysis": {
 					"publish": true,
 					"properties": null
@@ -477,13 +438,18 @@
 		},
 		"default_properties": [
 			{
-				"name": "consul.tag",
-				"value": "((application.shortsha))",
+				"name": "additional_properties_file",
+				"value": "local-sonar-project.properties",
 				"type": "string"
 			},
 			{
 				"name": "consul.servicename",
 				"value": "((application.name))",
+				"type": "string"
+			},
+			{
+				"name": "consul.tag",
+				"value": "((application.shortsha))",
 				"type": "string"
 			},
 			{
@@ -495,11 +461,6 @@
 				"name": "performanice.limit",
 				"value": 1000,
 				"type": "number"
-			},
-			{
-				"name": "additional_properties_file",
-				"value": "local-sonar-project.properties",
-				"type": "string"
 			}
 		],
 		"deployment_files": [
@@ -528,10 +489,7 @@
 				"target_path": "ci/pt.jmx"
 			}
 		],
-		"application_init": {
-			"command": "",
-			"arguments": null
-		},
+		"application_init": {},
 		"process": {
 			"init": {
 				"command": "ci/start.ps1"
@@ -545,19 +503,11 @@
 		},
 		"releases": [
 			{
-				"name": "jmeter",
-				"version": "latest"
-			},
-			{
 				"name": "bosh-dns-windows",
 				"version": "latest"
 			},
 			{
 				"name": "consul-windows",
-				"version": "latest"
-			},
-			{
-				"name": "netdemo-client",
 				"version": "latest"
 			}
 		]
