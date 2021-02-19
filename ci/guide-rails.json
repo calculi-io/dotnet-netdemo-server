@@ -56,7 +56,7 @@
 						"name": "integration",
 						"downloads": [],
 						"files": [
-							"./netdemo-server/bin/Debug/*",
+							"./netdemo-Server/bin/Debug/*",
 							"./test-integration.ps1"
 						]
 					}
