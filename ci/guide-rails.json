@@ -63,54 +63,12 @@
 				"exit_actions": {
 					"default": {
 						"fetch_logs": true,
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": [
-									"#gr-pipeline"
-								],
-								"message": "Segment Status"
-							}
-						],
+						"notifications": [],
 						"code_analysis": {
 							"publish": true,
 							"properties": null
 						},
 						"delete_instances": true
-					},
-					"on_success": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Test message"
-							}
-						],
-						"code_analysis": null
-					},
-					"on_failure": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Segment Failure"
-							}
-						],
-						"code_analysis": null
-					},
-					"on_abort": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Segment Aborted"
-							}
-						],
-						"code_analysis": null
 					}
 				},
 				"deployment_strategy": {
@@ -202,63 +160,12 @@
 				"exit_actions": {
 					"default": {
 						"fetch_logs": true,
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": [
-									"#gr-pipeline"
-								],
-								"message": "Segment Status"
-							}
-						],
+						"notifications": [],
 						"code_analysis": {
 							"publish": false,
 							"properties": null
 						},
 						"delete_instances": true
-					},
-					"on_success": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Test message"
-							}
-						],
-						"code_analysis": {
-							"publish": false,
-							"properties": null
-						}
-					},
-					"on_failure": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Segment Failure"
-							}
-						],
-						"code_analysis": {
-							"publish": false,
-							"properties": null
-						}
-					},
-					"on_abort": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Segment Aborted"
-							}
-						],
-						"code_analysis": {
-							"publish": false,
-							"properties": null
-						}
 					}
 				},
 				"properties": [
@@ -426,63 +333,12 @@
 				"exit_actions": {
 					"default": {
 						"fetch_logs": true,
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": [
-									"#gr-pipeline"
-								],
-								"message": "Segment Status"
-							}
-						],
+						"notifications": [],
 						"code_analysis": {
 							"publish": false,
 							"properties": null
 						},
 						"delete_instances": true
-					},
-					"on_success": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Test message"
-							}
-						],
-						"code_analysis": {
-							"publish": false,
-							"properties": null
-						}
-					},
-					"on_failure": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Segment Failure"
-							}
-						],
-						"code_analysis": {
-							"publish": false,
-							"properties": null
-						}
-					},
-					"on_abort": {
-						"notifications": [
-							{
-								"type": "slack",
-								"send_notification": true,
-								"to": null,
-								"message": "Segment Aborted"
-							}
-						],
-						"code_analysis": {
-							"publish": false,
-							"properties": null
-						}
 					}
 				},
 				"properties": [
@@ -611,63 +467,12 @@
 		"exit_actions": {
 			"default": {
 				"fetch_logs": true,
-				"notifications": [
-					{
-						"type": "slack",
-						"send_notification": true,
-						"to": [
-							"#gr-pipeline"
-						],
-						"message": "Segment Status"
-					}
-				],
+				"notifications": [],
 				"code_analysis": {
 					"publish": true,
 					"properties": null
 				},
 				"delete_instances": true
-			},
-			"on_success": {
-				"notifications": [
-					{
-						"type": "slack",
-						"send_notification": true,
-						"to": null,
-						"message": "Test message"
-					}
-				],
-				"code_analysis": {
-					"publish": false,
-					"properties": null
-				}
-			},
-			"on_failure": {
-				"notifications": [
-					{
-						"type": "slack",
-						"send_notification": true,
-						"to": null,
-						"message": "Segment Failure"
-					}
-				],
-				"code_analysis": {
-					"publish": false,
-					"properties": null
-				}
-			},
-			"on_abort": {
-				"notifications": [
-					{
-						"type": "slack",
-						"send_notification": true,
-						"to": null,
-						"message": "Segment Aborted"
-					}
-				],
-				"code_analysis": {
-					"publish": false,
-					"properties": null
-				}
 			}
 		},
 		"default_properties": [
