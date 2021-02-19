@@ -1,0 +1,10 @@
+packages
+bin
+obj
+.vs
+*.pfx
+netdemo-server.zip
+TestResults
+coverage.xml
+*.jtl
+test.xml
