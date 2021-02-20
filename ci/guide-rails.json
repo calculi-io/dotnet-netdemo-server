@@ -136,7 +136,7 @@
 					{
 						"name": "find java",
 						"definition": "find java",
-						"command": "ls /var/vcap/packages/jdk/\n$env:Path += \";$env:PKG_BASE_DIR/jdk/bin;$env:PKG_BASE_DIR/jmeter/bin\"\n",
+						"command": "# ls /var/vcap/packages/jdk/\n# $env:Path += \";$env:PKG_BASE_DIR/jdk/bin;$env:PKG_BASE_DIR/jmeter/bin\"\n",
 						"properties": null
 					},
 					{
