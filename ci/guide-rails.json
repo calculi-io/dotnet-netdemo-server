@@ -68,18 +68,7 @@
 					}
 				],
 				"post_deployment_actions": {
-					"instances": null,
-					"loadbalanced": false,
-					"loadbalancer": {
-						"TargetGroupName": "",
-						"TargetGroupPort": 0,
-						"TargetGroupProtocol": "",
-						"TargetType": "",
-						"VPCID": "",
-						"HealthCheckEnabled": false,
-						"HealthCheckPort": "",
-						"UnhealthyThresholdCount": 0
-					}
+					"loadbalancer": {}
 				},
 				"cache_info": {},
 				"tasks": [
@@ -89,7 +78,7 @@
 							{
 								"name": "Restore",
 								"definition": "Restore with nuget",
-								"command": "nuget restore ",
+								"command": "nuget restore \ndir",
 								"properties": null
 							},
 							{
@@ -273,20 +262,19 @@
 					}
 				],
 				"post_deployment_actions": {
-					"instances": null,
-					"loadbalanced": false,
-					"loadbalancer": {
-						"TargetGroupName": "",
-						"TargetGroupPort": 0,
-						"TargetGroupProtocol": "",
-						"TargetType": "",
-						"VPCID": "",
-						"HealthCheckEnabled": false,
-						"HealthCheckPort": "",
-						"UnhealthyThresholdCount": 0
-					}
+					"loadbalancer": {}
 				},
-				"deployment_target": 1
+				"deployment_target": 1,
+				"releases": [
+					{
+						"name": "bosh-dns-windows",
+						"version": "latest"
+					},
+					{
+						"name": "consul-windows",
+						"version": "latest"
+					}
+				]
 			},
 			{
 				"name": "Production",
@@ -319,8 +307,8 @@
 					},
 					{
 						"name": "performance.limit",
-						"description": "Set to break the build. Don't want in production right now.",
-						"value": 1
+						"value": 1,
+						"description": "Set to break the build. Don't want in production right now."
 					}
 				],
 				"deployment_strategy": {
@@ -410,20 +398,19 @@
 					}
 				],
 				"post_deployment_actions": {
-					"instances": null,
-					"loadbalanced": false,
-					"loadbalancer": {
-						"TargetGroupName": "",
-						"TargetGroupPort": 0,
-						"TargetGroupProtocol": "",
-						"TargetType": "",
-						"VPCID": "",
-						"HealthCheckEnabled": false,
-						"HealthCheckPort": "",
-						"UnhealthyThresholdCount": 0
-					}
+					"loadbalancer": {}
 				},
-				"deployment_target": 1
+				"deployment_target": 1,
+				"releases": [
+					{
+						"name": "bosh-dns-windows",
+						"version": "latest"
+					},
+					{
+						"name": "consul-windows",
+						"version": "latest"
+					}
+				]
 			}
 		],
 		"exit_actions": {
@@ -500,17 +487,7 @@
 				]
 			},
 			"name": "netdemo-server"
-		},
-		"releases": [
-			{
-				"name": "bosh-dns-windows",
-				"version": "latest"
-			},
-			{
-				"name": "consul-windows",
-				"version": "latest"
-			}
-		]
+		}
 	},
 	"organization": {
 		"orgname": "Onboarding-Demo"
